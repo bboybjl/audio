@@ -2,12 +2,12 @@
 
 
 
-setTimeout(audioAutoPlay('music'),5000);
+var timer = setTimeout(audioAutoPlay('music'),1000);
 
     $('.audioPhoto').click(function () {
         $(this).toggleClass('audioplay');
 
-        
+        clearTimeout(timer);
         bf()
     });
 
