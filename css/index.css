@@ -63,13 +63,22 @@ nav {
 .share{
     width: 80%;
     height: 200px;
-    background: url("../images/sharebg_02.png") no-repeat;
+    background: url("../images/share_03.png") no-repeat;
     background-size: contain;
 
 
     display: block;
     position: relative;
     top: -500px;
-    left: 0;
+    left: 40px;
+}
+.guanzhu{
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    bottom: 150px;
+    left: 100px;
+    background: url("../images/guanzhu.gif");
+    background-size: contain;
 }
 
