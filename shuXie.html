@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>印功夫智能书画院</title>
+    <meta name="viewport" id="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        @media  (max-width: 450px) and (min-width: 320px){
+            img{
+                visibility: visible;
+                width: 80%;
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+        }
+        @media  (max-width: 750px) and (min-width: 450px){
+            img{
+                visibility: visible;
+                width: 40%;
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: 46%;
+                transform: translate(-50%,-50%);
+            }
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+<nav>
+    <ul class="box">
+        <li>
+            <a href="video.html" class=""><span>书写视频</span></a>
+        </li>
+        <li>
+            <a href="luXian.html" class=""><span>行笔路线</span></a>
+        </li>
+        <li>
+            <a href="shuXie.html" class="on"><span>书写动画</span></a>
+        </li>
+        <li>
+            <a href="lianXi.html" class="on"><span>我要练习</span></a>
+        </li>
+        <li>
+            <a href="zhineng.html" class="on"><span>更多互动</span></a>
+        </li>
+    </ul>
+</nav>
+<div class="audioPhoto audioplay">
+    <audio src="http://edu.iebook.cn/music.mp3" autoplay preload loop id="music"></audio>
+</div>
+<img src="http://edu.iebook.cn/chen.gif" alt=""  class="pt-page-scaleUpCenter">
+
+</body>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/player.js"></script>
+</html>

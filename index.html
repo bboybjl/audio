@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>印功夫智能书画院</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<nav>
+    <ul class="box">
+        <li>
+            <a href="video.html" class=""><span>书写视频</span></a>
+        </li>
+        <li>
+            <a href="luXian.html" class=""><span>行笔路线</span></a>
+        </li>
+        <li>
+            <a href="shuXie.html" class="on"><span>书写动画</span></a>
+        </li>
+        <li>
+            <a href="lianXi.html" class="on"><span>我要练习</span></a>
+        </li>
+        <li>
+            <a href="zhineng.html" class="on"><span>更多互动</span></a>
+        </li>
+    </ul>
+</nav>
+</body>
+<script src="js/angular.js"></script>
+<script>
+    var app = angular.module('app',[]);
+    app.controller('ParentController', function($scope) {
+        $scope.person = {greeted: false};
+    });
+    app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+                .when("/video", {
+                    templateUrl: "video.html"
+                })
+                .when("/luXian", {
+                    templateUrl: "luXian.html"
+                })
+                .when("/dongHua", {
+                    template: "<p>ddd</p>"
+                })
+                .when("/canvas", {
+                    templateUrl: "lianXi.html",
+
+                })
+                .when("/pingFen", {
+                    template: "<p>ddd</p>"
+                })
+                .otherwise({
+                    redirectTo: "/canvas"
+                });
+    }]);
+
+</script>
+
+</html>

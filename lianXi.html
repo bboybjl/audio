@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" id="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> 印功夫智能书画院 </title>
+    <script src="2/jQuery.min.js"></script>
+    <link href="2/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+
+
+</head>
+<body>
+<nav>
+    <ul class="box">
+        <li>
+            <a href="video.html" class=""><span>书写视频</span></a>
+        </li>
+        <li>
+            <a href="luXian.html" class=""><span>行笔路线</span></a>
+        </li>
+        <li>
+            <a href="shuXie.html" class="on"><span>书写动画</span></a>
+        </li>
+        <li>
+            <a href="lianXi.html" class="on"><span>我要练习</span></a>
+        </li>
+        <li>
+            <a href="zhineng.html" class="on"><span>更多互动</span></a>
+        </li>
+    </ul>
+</nav>
+<div class="audioPhoto audioplay">
+    <audio src="http://edu.iebook.cn/music.mp3" autoplay preload loop id="music"></audio>
+</div>
+<div class="miaohong">
+    <div class="imgBox">
+        <img src="2/chen.jpg" class="bgimg" />
+
+    </div>
+
+    <canvas id="canvasId" width="400" height="400"></canvas>
+    <div class="mask"></div>
+</div>
+<div class="mask_btn">
+
+    <input class="red_btn" type="button" value="红色" />
+    <input class="black_btn" type="button" value="黑色" />
+    <input class="clear_btn" type="button" value="删除" />
+
+
+
+
+</div>
+
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/player.js"></script>
+<script type="text/javascript">
+
+
+
+    $(document).ready(function(){
+        var a = 2;
+
+
+
+
+
+        $(".mh_btn").click(function(){
+            if($("#canvasId").is(":hidden")){
+                $("#canvasId").show();
+                $(".mask").show();
+
+            }else{
+                $("#canvasId").hide();
+                $(".mask").hide();
+            }
+        });
+
+
+        function Handwriting(id) {
+            ;this.canvas = document.getElementById(id);
+            this.ctx = this.canvas.getContext("2d");
+            this.ctx.fillStyle = "rgba(255,0,0,0.25)";
+            var _this = this;
+            this.canvas.onmousedown = function (e) { _this.downEvent(e)};
+            $("#canvasId").on('touchstart mousedown', function(e) {
+                _this.downEvent(e);
+
+            });
+            $("#canvasId").on('touchmove mousemove', function(e) {
+                _this.moveEvent(e);
+                return false
+
+            });
+            $("#canvasId").on('touchend mouseout mouseup', function(e) {
+                _this.upEvent(e);
+            });
+            //this.canvas.onmousemove = function (e) { _this.moveEvent(e)};
+            //this.canvas.onmouseup = function (e) { _this.upEvent(e)};
+            //this.canvas.onmouseout = function (e) { _this.upEvent(e)};
+            this.moveFlag = false;
+            this.upof = {};
+            this.radius = 0;
+            this.has = [];
+            this.lineMax = 40;
+            this.lineMin = 5;
+            this.linePressure = 1;
+            this.smoothness = 80;
+
+        }
+
+        Handwriting.prototype.clear = function () {
+            this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        }
+
+        Handwriting.prototype.colorblack = function () {
+            this.ctx.fillStyle = "rgba(0,0,0,1)";
+        }
+
+        Handwriting.prototype.colorred = function () {
+            this.ctx.fillStyle = "rgba(255,0,0,1)";
+        }
+
+        Handwriting.prototype.downEvent = function (e) {
+            this.moveFlag = true;
+            this.has = [];
+            this.upof = this.getXY(e);
+
+
+
+        };
+
+        Handwriting.prototype.moveEvent = function (e) {
+
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            if (!this.moveFlag)
+                return;
+
+            var of = this.getXY(e);
+            var up = this.upof;
+            var ur = this.radius;
+            this.has.unshift({time:new Date().getTime() ,dis:this.distance(up,of)});
+            var dis = 0;
+            var time = 0;
+            for (var n = 0; n < this.has.length-1; n++) {
+                dis += this.has[n].dis;
+                time += this.has[n].time-this.has[n+1].time;
+                if (dis>this.smoothness)
+                    break;
+            }
+            var or = 15;
+            this.radius = or;
+            this.upof = of;
+            if (this.has.length<=4)
+                return;
+            var len = Math.round(this.has[0].dis/2)+1;
+            for (var i = 0; i < len; i++) {
+                var x = up.x + (of.x-up.x)/len*i;
+                var y = up.y + (of.y-up.y)/len*i;
+                var r = ur + (or-ur)/len*i;
+
+
+
+                this.ctx.beginPath();
+
+                this.ctx.arc(x,y,r/a,0.2*Math.PI,Math.PI,true);
+                this.ctx.fill();
+
+            }
+
+
+        }
+
+        Handwriting.prototype.upEvent = function (e) {
+            this.upof = this.getXY(e);
+            this.ctx.beginPath();
+
+
+            this.moveFlag = false;
+        };
+
+        Handwriting.prototype.getXY = function (e)
+        {
+            var xPos, yPos;
+            var event = e.originalEvent;
+            if (e.type.indexOf('touch') !== -1) { // event.constructor === TouchEvent
+                xPos = event.touches[0].clientX -((document.body.offsetWidth || document.documentElement.offsetWidth) - this.canvas.offsetWidth)/2;
+                yPos = event.touches[0].clientY - this.canvas.offsetTop  + (document.body.scrollTop || document.documentElement.scrollTop) - 10;
+            }else{
+                xPos = e.clientX - ((document.body.offsetWidth || document.documentElement.offsetWidth) - this.canvas.offsetWidth)/2;
+                yPos = e.clientY - this.canvas.offsetTop  + (document.body.scrollTop || document.documentElement.scrollTop) - 10;
+            }
+
+            if(window.screen.width <= 400){
+                return {
+                    x: xPos-25,
+                    y: yPos-100
+                };
+            }else if(window.screen.width <= 450){
+                return {
+                    x: xPos-7,
+                    y: yPos-100
+                };
+            }else if(window.screen.width <= 630){
+                return {
+                    x: xPos-50,
+                    y: yPos
+                };
+            }else if(window.screen.width <= 700){
+                return {
+                    x: xPos-30,
+                    y: yPos+5
+                };
+            }else {
+                return {
+                    x: xPos-5,
+                    y: yPos
+                };
+        }
+
+        }
+
+        Handwriting.prototype.distance = function (a,b)
+        {
+            var x = b.x-a.x , y = b.y-a.y;
+            return Math.sqrt(x*x+y*y);
+        }
+
+        var hw = new Handwriting("canvasId");
+        hw.lineMax = 50;
+        hw.lineMin = 15;
+        hw.linePressure = 2.5;
+        hw.smoothness = 100;
+        $(".red_btn").click(function(){
+            hw.colorred();
+        });
+        $(".black_btn").click(function(){
+            hw.colorblack();
+        });
+
+        $(".clear_btn").click(function(){
+            hw.clear();
+        });
+        $(".big3_btn").click(function () {
+            return a = 2
+        });
+        $(".big_btn").click(function () {
+            return a = 1.5
+        });
+        $(".big2_btn").click(function () {
+            return a = 1
+        });
+
+
+    });
+</script>
+
+
+</body>
+</html>
