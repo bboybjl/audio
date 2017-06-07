@@ -4,7 +4,7 @@
 
 
     var audio = document.getElementById('music');
-    audio.play();
+    bf();
     $('.audioPhoto').click(function () {
         $(this).toggleClass('audioplay');
 
