@@ -2,10 +2,9 @@
 
 
 
-$(function () {
 
     var audio = document.getElementById('music');
-    bf();
+    audio.play();
     $('.audioPhoto').click(function () {
         $(this).toggleClass('audioplay');
 
@@ -18,7 +17,7 @@ $(function () {
     setTimeout(function () {
         $('.share').fadeOut(500)
 
-    },8000)
+    },8000);
 
 
     function bf(){
@@ -33,6 +32,6 @@ $(function () {
             }
         }
     }
-});
+
 
 

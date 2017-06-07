@@ -7,7 +7,7 @@ ul,li{list-style:none;margin:0;padding:0;}
     .zi_slide ul li img{width:50px;height:50px;}
     .zi_slide{left: -65px}
     .mh_btn{margin-left: 10%}
-    .mask_btn{width: 90%;  margin-top: 10px;  text-align: center;}
+    .mask_btn{width: 90%;  margin-top: 10px;  text-align: center;position: relative;z-index: 99}
     .clear_btn,.big_btn,.big2_btn,.big3_btn,.zige,.bifa,.shipin{display:inline-block;padding:7px 10px; border: 2px solid #000; background-color: #fff; margin-top: 10px}
 
 }
@@ -16,7 +16,7 @@ ul,li{list-style:none;margin:0;padding:0;}
     .zi_slide ul li img{width:50px;height:50px;}
     .zi_slide{left: -65px}
     .mh_btn{margin-left: 10%}
-    .mask_btn{width: 100%;  margin-top: 10px;  text-align: center;}
+    .mask_btn{width: 100%;  margin-top: 10px;  text-align: center;position: relative;z-index: 99}
     .clear_btn,.big_btn,.big2_btn,.big3_btn,.zige,.bifa,.shipin{display:inline-block;padding:7px 10px; border: 2px solid #000; background-color: #fff; margin-top: 10px}
 
 }
@@ -58,7 +58,8 @@ ul,li{list-style:none;margin:0;padding:0;}
 .red_btn,.black_btn,.clear_btn,.big_btn,.big2_btn,.big3_btn{cursor: pointer; padding: 8px 12px}
 .red_btn{background-color: red; color: #fff}
 .black_btn{background-color: #000; color: #fff}
-.mask_btn input:hover{transform:scale(1.5); border: 1px solid green; color: #fff; background-color: skyblue}
+.mask_btn input:hover{transform:scale(1.5); border: 1px solid green; color: #fff; background-color: skyblue;
+    }
 
 
 
