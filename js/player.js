@@ -2,8 +2,7 @@
 
 
 
-
-audioAutoPlay('music');
+setTimeout(audioAutoPlay('music'),5000);
 
     $('.audioPhoto').click(function () {
         $(this).toggleClass('audioplay');
